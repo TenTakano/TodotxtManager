@@ -7,8 +7,9 @@ todolist \<command\> [\<args\>]
 
 If you type "todolist" without any args or sub commands, tasks stored in list file will be displayed.
 
-These are sub commands:  
-| command | |
+These are sub commands:
+
+| command | Feature |
 | :---: | :--- |
 | add | Add tasks to a list |
 | done | Change status of a task done |
