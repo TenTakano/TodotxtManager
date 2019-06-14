@@ -1,0 +1,12 @@
+# binary files
+[Bb]in/
+[Oo]bj/
+
+# user's controll information
+.vs/
+
+# user's project option
+*.user
+
+# customize on IDE by user
+*.sno
