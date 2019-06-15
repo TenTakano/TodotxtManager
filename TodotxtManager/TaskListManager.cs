@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Reflection;
 
@@ -37,17 +36,13 @@ namespace TodotxtManager {
         /// Change status of a task done
         /// </summary>
         /// <param name="index">Index of a task which want to change status done</param>
-        public void Done(int index) {
-            // Adjust different between internal count and display number
-            index--;
+        public void Done(int index) => this.ChangeTaskStatus(index, TaskState.Done);
 
-            if (index < 0 || index > this.taskList.Count - 1) {
-                Console.WriteLine($"Task index should be given 1 to {this.taskList.Count}");
-                return;
-            }
-
-            this.taskList[index].State = TaskState.Done;
-        }
+        /// <summary>
+        /// Change status of a task cancel
+        /// </summary>
+        /// <param name="index">Index of a task which want to change status cancel</param>
+        public void Cancel(int index) => this.ChangeTaskStatus(index, TaskState.Canceled);
 
         /// <summary>
         /// Write tasks to a save file
@@ -69,6 +64,24 @@ namespace TodotxtManager {
                     this.taskList = (TaskList)serializer.Deserialize(sr);
                 }
             }
+        }
+
+        private void ChangeTaskStatus(int index, TaskState state) {
+            // Adjust different between internal count and display number
+            index--;
+
+            if (index < 0 || index > this.taskList.Count - 1) {
+                Console.WriteLine($"Task index should be given 1 to {this.taskList.Count}");
+                return;
+            }
+
+            // check state of the task
+            if (this.taskList[index].State != TaskState.Todo) {
+                Console.WriteLine("Specified task is already finished");
+                return;
+            }
+
+            this.taskList[index].State = state;
         }
     }
 }
