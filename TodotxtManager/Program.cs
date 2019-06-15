@@ -1,9 +1,12 @@
 ﻿using System;
+using CommandLine;
 
 namespace TodotxtManager {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            Parser.Default.ParseArguments<ArgOptions>(args).WithParsed<ArgOptions>(o => {
+
+            });
         }
     }
 }
