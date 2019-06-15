@@ -11,11 +11,16 @@ namespace TodotxtManager {
                 tasks.Show();
             }
             else {
-                Parser.Default.ParseArguments<ArgOptions, AddCommand>(args)
+                Parser.Default.ParseArguments<ArgOptions, AddCommand, DoneCommand>(args)
                     .WithParsed<ArgOptions>(o => {
                     })
                     .WithParsed<AddCommand>(o => {
                         tasks.Add(new TaskContainer(o));
+                        tasks.Save();
+                        tasks.Show();
+                    })
+                    .WithParsed<DoneCommand>(o => {
+                        tasks.Done(o.Index);
                         tasks.Save();
                         tasks.Show();
                     });
