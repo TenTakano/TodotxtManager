@@ -9,4 +9,10 @@ namespace TodotxtManager {
         [Value(0, MetaName  = "Task Name")]
         public string Name { get; set; }
     }
+
+    [Verb("done", HelpText = "Change status of a task done")]
+    public class DoneCommand {
+        [Value(0, MetaName = "Index of task which want to change status to done")]
+        public int Index { get; set; }
+    }
 }
