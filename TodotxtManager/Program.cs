@@ -11,7 +11,7 @@ namespace TodotxtManager {
                 tasks.Show();
             }
             else {
-                Parser.Default.ParseArguments<ArgOptions, AddCommand, DoneCommand>(args)
+                Parser.Default.ParseArguments<ArgOptions, AddCommand, DoneCommand, CancelCommand>(args)
                     .WithParsed<ArgOptions>(o => {
                     })
                     .WithParsed<AddCommand>(o => {
@@ -21,6 +21,11 @@ namespace TodotxtManager {
                     })
                     .WithParsed<DoneCommand>(o => {
                         tasks.Done(o.Index);
+                        tasks.Save();
+                        tasks.Show();
+                    })
+                    .WithParsed<CancelCommand>(o => {
+                        tasks.Cancel(o.Index);
                         tasks.Save();
                         tasks.Show();
                     });

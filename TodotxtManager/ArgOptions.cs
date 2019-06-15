@@ -15,4 +15,10 @@ namespace TodotxtManager {
         [Value(0, MetaName = "Index of task which want to change status to done")]
         public int Index { get; set; }
     }
+
+    [Verb("cancel", HelpText = "Change status of a task cancel")]
+    public class CancelCommand {
+        [Value(0, MetaName = "Index of task wihich want to change status to cancel")]
+        public int Index { get; set; }
+    }
 }
