@@ -44,6 +44,12 @@ namespace TodotxtManager {
         public void Cancel(int index) => this.ChangeTaskStatus(index, TaskState.Canceled);
 
         /// <summary>
+        /// Reset status of a task
+        /// </summary>
+        /// <param name="index">Index of a task wich want to reset status</param>
+        public void Reset(int index) => this.ChangeTaskStatus(index, TaskState.Todo);
+
+        /// <summary>
         /// Write tasks to a save file
         /// </summary>
         public void Save() {
