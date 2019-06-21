@@ -8,8 +8,7 @@ using TaskList = System.Collections.Generic.List<TodotxtManager.TaskContainer>;
 
 namespace TodotxtManager {
     public class TaskListManager {
-        private string filePath = Directory.GetParent(Assembly.GetExecutingAssembly().Location)
-                                    + "/todolist.xml";
+        private string filePath = $"{Environment.CurrentDirectory}/todolist.xml";
         private TaskList taskList = new TaskList();
 
         /// <summary>
