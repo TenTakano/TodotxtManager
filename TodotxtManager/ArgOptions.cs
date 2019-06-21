@@ -21,4 +21,10 @@ namespace TodotxtManager {
         [Value(0, MetaName = "Index of task wihich want to change status to cancel")]
         public int Index { get; set; }
     }
+
+    [Verb("reset", HelpText = "Reset status of a task")]
+    public class ResetCommand {
+        [Value(0, MetaName = "Index of task which want to reset status")]
+        public int Index { get; set; }
+    }
 }
