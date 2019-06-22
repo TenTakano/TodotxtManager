@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.Reflection;
+using System.Linq;
 
 using TaskList = System.Collections.Generic.List<TodotxtManager.TaskContainer>;
 
@@ -10,6 +11,26 @@ namespace TodotxtManager {
     public class TaskListManager {
         private string filePath = $"{Environment.CurrentDirectory}/todolist.xml";
         private TaskList taskList = new TaskList();
+
+        /// <summary>
+        /// Get todo list
+        /// </summary>
+        public IEnumerable<TaskContainer> TodoList {
+            get {
+                return this.taskList.Where(n => n.State == TaskState.Todo)
+                        .OrderBy(n => n.Add);
+            }
+        }
+
+        /// <summary>
+        /// Get task list which have already finished by done or cancel method
+        /// </summary>
+        public IEnumerable<TaskContainer> FinishedList {
+            get {
+                return this.taskList.Where(n => n.State != TaskState.Todo)
+                        .OrderBy(n => n.Add);
+            }
+        }
 
         /// <summary>
         /// Add a new task to the list
@@ -21,12 +42,24 @@ namespace TodotxtManager {
         /// Show the tasks stored in the list
         /// </summary>
         public void Show() {
-            if (this.taskList.Count == 0) {
-                Console.WriteLine("There is no tasks");
+            // show todo list
+            if (this.TodoList.Count() == 0) {
+                Console.WriteLine("There is no tasks to do");
             }
             else {
-                for (int i = 0; i < this.taskList.Count; i++) {
-                    Console.WriteLine($"{i + 1}:{this.taskList[i]}");
+                Console.WriteLine("Todo");
+                Console.WriteLine("------------------------------");
+                for (int i = 0; i < this.TodoList.Count(); i++) {
+                    Console.WriteLine($"{i + 1}:{this.TodoList.ElementAt(i)}");
+                }
+            }
+
+            // show finished task list
+            if (this.FinishedList.Count() > 0) {
+                Console.WriteLine(Environment.NewLine + "Finished task");
+                Console.WriteLine("------------------------------");
+                for (int i = 0; i < this.FinishedList.Count(); i++) {
+                    Console.WriteLine($"{i + 1}:{this.FinishedList.ElementAt(i)}");
                 }
             }
         }
@@ -35,19 +68,65 @@ namespace TodotxtManager {
         /// Change status of a task done
         /// </summary>
         /// <param name="index">Index of a task which want to change status done</param>
-        public void Done(int index) => this.ChangeTaskStatus(index, TaskState.Done);
+        public void Done(int index) {
+            // index range check
+            index--;
+            if (index < 0 || index > this.TodoList.Count() - 1) {
+                Console.WriteLine($"Invalid task number");
+                return;
+            }
+
+            // check state of the task
+            if (this.TodoList.ElementAt(index).State != TaskState.Todo) {
+                Console.WriteLine("Specified task is already finished");
+                return;
+            }
+
+            this.TodoList.ElementAt(index).Finished = DateTime.Now;
+            this.TodoList.ElementAt(index).State = TaskState.Done;
+        }
 
         /// <summary>
         /// Change status of a task cancel
         /// </summary>
         /// <param name="index">Index of a task which want to change status cancel</param>
-        public void Cancel(int index) => this.ChangeTaskStatus(index, TaskState.Canceled);
+        public void Cancel(int index) {
+            // index range check
+            index--;
+            if (index < 0 || index > this.TodoList.Count() - 1) {
+                Console.WriteLine($"Invalid task number");
+                return;
+            }
+
+            // check state of the task
+            if (this.TodoList.ElementAt(index).State != TaskState.Todo) {
+                Console.WriteLine("Specified task is already finished");
+                return;
+            }
+
+            this.TodoList.ElementAt(index).State = TaskState.Canceled;
+        }
 
         /// <summary>
         /// Reset status of a task
         /// </summary>
         /// <param name="index">Index of a task wich want to reset status</param>
-        public void Reset(int index) => this.ChangeTaskStatus(index, TaskState.Todo);
+        public void Reset(int index) {
+            // index range check
+            index--;
+            if (index < 0 || index > this.FinishedList.Count() - 1) {
+                Console.WriteLine($"Invalid task number");
+                return;
+            }
+
+            // check state of the task
+            if (this.FinishedList.ElementAt(index).State == TaskState.Todo) {
+                Console.WriteLine("Specified task is not finished");
+                return;
+            }
+
+            this.FinishedList.ElementAt(index).State = TaskState.Todo;
+        }
 
         /// <summary>
         /// Write tasks to a save file
@@ -69,24 +148,6 @@ namespace TodotxtManager {
                     this.taskList = (TaskList)serializer.Deserialize(sr);
                 }
             }
-        }
-
-        private void ChangeTaskStatus(int index, TaskState state) {
-            // Adjust different between internal count and display number
-            index--;
-
-            if (index < 0 || index > this.taskList.Count - 1) {
-                Console.WriteLine($"Task index should be given 1 to {this.taskList.Count}");
-                return;
-            }
-
-            // check state of the task
-            if (this.taskList[index].State != TaskState.Todo) {
-                Console.WriteLine("Specified task is already finished");
-                return;
-            }
-
-            this.taskList[index].State = state;
         }
     }
 }
