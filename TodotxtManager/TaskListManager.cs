@@ -25,7 +25,7 @@ namespace TodotxtManager {
                 Console.WriteLine("There is no tasks");
             }
             else {
-                for(int i = 0; i < this.taskList.Count; i++) {
+                for (int i = 0; i < this.taskList.Count; i++) {
                     Console.WriteLine($"{i + 1}:{this.taskList[i]}");
                 }
             }
@@ -63,7 +63,7 @@ namespace TodotxtManager {
         /// Read tasks from a save file
         /// </summary>
         public void Load() {
-            if(File.Exists(this.filePath)) {
+            if (File.Exists(this.filePath)) {
                 var serializer = new XmlSerializer(typeof(TaskList));
                 using (var sr = new StreamReader(filePath, Encoding.UTF8)) {
                     this.taskList = (TaskList)serializer.Deserialize(sr);
