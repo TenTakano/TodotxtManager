@@ -29,7 +29,28 @@ namespace TodotxtManager {
         }
 
         override public string ToString() {
-            return $"{this.State}, {this.Name}, {this.Add}, {this.Finished}";
+            var str = string.Empty;
+
+            // task state
+            str += this.State switch {
+                TaskState.Todo => " ",
+                TaskState.Done => "x ",
+                TaskState.Canceled => "- ",
+                _ => throw new InvalidOperationException()
+            };
+
+            // task add timestamp
+            str += $"{this.Add} ";
+
+            // task finished timestamp
+            if (this.State != TaskState.Todo) {
+                str += $"{this.Finished} ";
+            }
+
+            // task title
+            str += this.Name;
+
+            return str;
         }
     }
 
