@@ -31,4 +31,5 @@ x 2019-07-06-11:00 2019-07-06-17:32 buy milk @private
 | task add time | timestamp (e.g. 2019-01-01-16:00) | timestamp that a task is add to list |
 | task finished time | timestamp (e.g. 2019-01-01-16:00) | timestamp that a task was finished |
 | title | string | title of task |
-| tags | string | tags for classification of tasks |
+| tags | string | tags for classification of tasks (WIP) |
+| detail | string | detail of a task (WIP) |
