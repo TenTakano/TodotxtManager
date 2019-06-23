@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright(c) 2019 TenTakano
+// All rights reserved.
+// See License in the project root for license information.
+
+using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
