@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
