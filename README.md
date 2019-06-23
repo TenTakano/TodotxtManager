@@ -14,6 +14,7 @@ These are sub commands:
 | add | Add tasks to a list |
 | done | Change status of a task done |
 | cancel | Change status of a task cancel. This command may be used in case the task no longer need to do |
+| reset | Reset status of a task which is already finished |
 
 ## Task list file format
 Tasks are stored in a text file named "todolist". The format of them is bellow.
