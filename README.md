@@ -1,3 +1,5 @@
+This project is converted to elixir code ([here](https://github.com/takano20771/TodoCmd))
+
 # Todotext Manager
 Todotext Manager is a system for management tasks. The base concept of todo list model is from todo.txt. Native todo.txt is very simple and useful, however, it can be complex if each task contain extra information (e.g. timestamp of add task, tags, memos and etc...). Such kind of information decrease readbility of the list.
 Todotext Manager helps to write the todo list and manages the list with the task details. 
